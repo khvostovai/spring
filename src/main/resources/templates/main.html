@@ -6,7 +6,11 @@
     <title>index</title>
 </head>
 <body>
-    <form action="index.html" method="post" name="addMessage">
+    <form th:action="@{/logout}" nethod="post">
+        <input type="submit" value="Sign Out"/>
+    </form>
+
+    <form action="main.html" method="post" name="addMessage">
         <input name="message" type="text"/>
         <br/>
         <input name="tag" type="text"/>
