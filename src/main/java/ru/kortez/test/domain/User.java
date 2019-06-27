@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@Table(name = "usr")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,7 +26,7 @@ public class User {
         this.id = id;
     }
 
-    public String getLogin() {
+    public String getUsername() {
         return username;
     }
 

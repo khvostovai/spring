@@ -4,21 +4,16 @@
       xmlns:sec="https://www.thymeleaf.og/thymelraf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
-    <title>login</title>
+    <title>registration</title>
 </head>
     <body>
-        Sign In
-        <div th:if="${param.error}">
-            Invalid username and password.
+        Add new user
+        <div th:if="${tip != null}" th:text="${message}">
         </div>
-        <div th:if="${param.logout}">
-            You have been logged out.
-        </div>
-        <form th:action="@{/login}" method="post">
+        <form th:action="@{/registration}" th:object="${User}" method="post">
             <div><label> User Name: <input type="text" name="username"/></label></div>
             <div><label> Password: <input type="password" name="password"/></label></div>
             <div><input type="submit" value="Sign In"/></div>
         </form>
-        Click <a th:href="@{/registration}">here </a> to add new user.
     </body>
 </html>

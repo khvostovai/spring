@@ -1,20 +1,19 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
+<html xml="thhp://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.og/thymelraf-extras-springsecurity3">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>index</title>
 </head>
 <body>
-    <form th:action="@{/logout}" nethod="post">
+    <form th:action="@{/logout}" method="post">
         <input type="submit" value="Sign Out"/>
     </form>
 
-    <form action="main.html" method="post" name="addMessage">
-        <input name="message" type="text"/>
-        <br/>
-        <input name="tag" type="text"/>
-        <br/>
+    <form th:action="@{/main}" method="post" name="addMessage">
+        сообщение: <input name="message" type="text"/>
+        тег: <input name="tag" type="text"/>
         <button type="submit" name="addBtn">добавить</button>
     </form>
     <div th:if="${messages != null}">
