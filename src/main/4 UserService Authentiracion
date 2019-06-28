@@ -1,0 +1,27 @@
+Аутентификация пользователя при помощи UserService
+
+Для присвоения поведения класс User реализует методы интерфейса UserDetails:
+getAuthorities() возвращает роли пользователя
+isAccountNonExpired() проверка что срок действия аккаунта не истек
+isAccountNonLocked() проверка что аккаунт не заблокирован
+isCredentialsNonExpired() проверка что учетные данные не устарели
+isEnabled() пользователь активен
+
+Для корректного возврата ролей необходимо реализовать классу Roles метод интерфейса GrantedAuthority - getAuthority
+Для возврата Enum указывается метод name()
+
+В классе WebSecurityConfig зависимость DataSource заменяется UserService
+В методе configure(AuthenticationManagetBuilder auth)
+jdbcAuthentication() и dataSource() заменяютя userDetailService(userService)
+запросы убираются за ненадобнотью
+
+Для работы с БД в части получения информации по пользователям создается слой Service
+UserService имплементит интерфейс UserDetailService и переопределяет метод loadUserByUserName(имя пользователя)
+Для работы с БД внедряется зависимость UserRepository и используется метод findByUserName(имя пользователя)
+
+Для привязки сообщения пользователю в классе Message добавляется поле User author
+Аннотация "@ManyToOne(fetch = EAGER)" говорит что связ со стороны класса Message до класса User многие к одному
+Аннотация "@JoinColumn(name = "user_id")" говорит что связь будет через поле "user_id"
+В конструктор Message добавить пользователя
+Аутентифицированного пользователя можно получить через Аннотацию @AuthenticationPrincipal User user как параметр контроллера
+

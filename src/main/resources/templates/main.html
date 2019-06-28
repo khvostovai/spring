@@ -19,7 +19,7 @@
     <div th:if="${messages != null}">
         <p>список сообщений:</p>
         <ul>
-            <li th:each="item : ${messages}" th:text="${item.getText()}">111111</li>
+            <li th:each="item : ${messages}"> <p th:text="${item.getText()} + ' <' + ${item.getAuthorName()} + '>'"/></li>
         </ul>
     </div>
 </body>
