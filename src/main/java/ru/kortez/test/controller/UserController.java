@@ -37,6 +37,7 @@ public class UserController {
     public String userSave(@RequestParam("userId") User user,
                            @RequestParam("username") String username,
                            @RequestParam Map<String,String> form){
+        System.out.println("DONE");
         user.setUsername(username);
         Set<String> roles = Arrays.stream(Role.values()).map(Role::name).collect(Collectors.toSet());
         user.getRoles().clear();
