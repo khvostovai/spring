@@ -1,13 +1,14 @@
 <#import "./parts/page.ftl" as p>
 <#import "./parts/login.ftl" as l>
-<@p.page "main">
+<@p.page "messages">
     <@l.logout/>
 
-    <form action="/main" method="post" name="addMessage">
+    <form action="/addMessage" method="post">
         сообщение:
         <input name="message" type="text"/>
         тег:
         <input name="tag" type="text"/>
+        <input type="hidden" name="theme_id" value="${theme_id}">
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
         <button type="submit" name="addBtn">добавить</button>
     </form>

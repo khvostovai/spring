@@ -1,5 +1,7 @@
 package ru.kortez.test.domain;
 
+import org.hibernate.annotations.Fetch;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,13 +16,26 @@ public class Message {
     @JoinColumn(name = "user_id")
     private User author;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "theme_id")
+    private Theme theme;
+
     public Message() {
     }
 
-    public Message(String text, String tag, User user) {
+    public Message(String text, String tag, User user, Theme theme) {
         this.text = text;
         this.tag = tag;
         this.author = user;
+        this.theme = theme;
+    }
+
+    public Theme getTheme() {
+        return theme;
+    }
+
+    public void setTheme(Theme theme) {
+        this.theme = theme;
     }
 
     public String getAuthorName(){
