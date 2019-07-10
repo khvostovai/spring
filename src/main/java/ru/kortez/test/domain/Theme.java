@@ -11,7 +11,6 @@ public class Theme {
     private long id;
 
     private String title;
-
     private Date date;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -24,7 +23,6 @@ public class Theme {
     public Theme(String title, User author) {
         this.title = title;
         this.author = author;
-        this.date = new Date();
     }
 
     public long getId() {

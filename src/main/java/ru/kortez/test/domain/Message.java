@@ -3,6 +3,7 @@ package ru.kortez.test.domain;
 import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Message {
@@ -11,6 +12,7 @@ public class Message {
     private Integer id;
     private String text;
     private String tag;
+    private Date date;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
@@ -28,6 +30,15 @@ public class Message {
         this.tag = tag;
         this.author = user;
         this.theme = theme;
+        this.date = new Date();
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public Theme getTheme() {

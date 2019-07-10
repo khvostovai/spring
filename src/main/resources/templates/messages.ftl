@@ -21,7 +21,13 @@
                     <li>
                         <span>${message.text}</span>
                         <i>${message.tag}</i>
-                        <strong>${message.authorName}</strong>
+                        <p><strong>${message.authorName}</strong> <i>${message.date}</i></p>
+                        <form action="/delMessage" method="post">
+                            <input type="submit" value="delete"/>
+                            <input type="hidden" name="theme_id" value="${message.theme.id}">
+                            <input type="hidden" name="message_id" value="${message.id}"/>
+                            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                        </form>
                     </li>
                 </#list>
             </ul>
