@@ -2,7 +2,6 @@
 <#import "./parts/login.ftl" as l>
 
 <@p.page "login">
-        Sign In
     <#if (param.error)??>
         <div>
             Invalid username and password.

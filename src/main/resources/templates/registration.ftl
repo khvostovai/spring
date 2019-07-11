@@ -2,7 +2,6 @@
 <#import "./parts/login.ftl" as l>
 
 <@p.page "Registration">
-        Add new user
     <#if message??>
         <div>
             ${message}
