@@ -30,7 +30,6 @@ public class ThemeController {
     @GetMapping("/themes")
     String themesList(Model model){
         model.addAttribute("themes", themeRepository.findAll());
-        model.addAttribute("countMessages", messageRepository.count());
         return "themes";
     }
 

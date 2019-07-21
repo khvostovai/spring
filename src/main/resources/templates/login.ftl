@@ -11,6 +11,6 @@
             You have been logged out.
         </div>
     </#if>
-        <@l.login "/login" "Sign in"/>
+        <@l.login false/>
         Click <a href="/registration">here </a> to add new user.
 </@p.page>

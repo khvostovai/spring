@@ -7,5 +7,5 @@
             ${message}
         </div>
     </#if>
-        <@l.login "/registration" "registration"/>
+        <@l.login true/>
 </@p.page>
