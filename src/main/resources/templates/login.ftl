@@ -2,13 +2,9 @@
 <#import "./parts/login.ftl" as l>
 
 <@p.page "login">
-    <#if (param.error)??>
+    <#if message??>
         <div>
-            Invalid username and password.
-        </div>
-    <#elseif (param.logout)??>
-        <div>
-            You have been logged out.
+            ${message}
         </div>
     </#if>
         <@l.login false/>
