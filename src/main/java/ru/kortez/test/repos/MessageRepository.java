@@ -6,6 +6,6 @@ import ru.kortez.test.domain.Theme;
 
 import java.util.List;
 
-public interface MessageRepository extends CrudRepository<Message, Integer> {
+public interface MessageRepository extends CrudRepository<Message, Long> {
     List<Message> findAllByTheme(Theme theme);
 }
