@@ -11,8 +11,8 @@ import ru.kortez.test.domain.Role;
 import ru.kortez.test.domain.User;
 import ru.kortez.test.repos.UserRepository;
 
-import java.util.Collections;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService  implements UserDetailsService {
@@ -40,13 +40,17 @@ public class UserService  implements UserDetailsService {
 
         if(!StringUtils.isEmpty(user.getEmail()))
         {
-            String message = String.format("" +
-                    "Hello, %s \n" +
-                    "For activation your account on Forum click here: http://localhost:8080/activate/%s",
-                    user.getUsername(), user.getActivationCode());
-            mailSender.send(user.getEmail(), "Activation code", message);
+            sendMessage(user);
         }
         return true;
+    }
+
+    private void sendMessage(User user) {
+        String message = String.format("" +
+                "Hello, %s \n" +
+                "For activation your account on Forum click here: http://localhost:8080/activate/%s",
+                user.getUsername(), user.getActivationCode());
+        mailSender.send(user.getEmail(), "Activation code", message);
     }
 
     public boolean activateUser(String code) {
@@ -59,5 +63,44 @@ public class UserService  implements UserDetailsService {
             userRepository.save(user);
             return true;
         }
+    }
+
+    public void saveUser(User user, String username, Map<String, String> form) {
+        user.setUsername(username);
+        Set<String> roles = Arrays.stream(Role.values()).map(Role::name).collect(Collectors.toSet());
+        user.getRoles().clear();
+        for (String key : form.keySet()) {
+            if (roles.contains(key)){
+                user.getRoles().add(Role.valueOf(key));
+            }
+        }
+        userRepository.save(user);
+    }
+
+    public List<User> getUserList() {
+        return userRepository.findAll();
+    }
+
+    public void updateProfile(User user, String email, String password) {
+        String userEmail = user.getEmail();
+
+        boolean isEmailChange = ((email != null && !email.equals(userEmail)) ||
+                (userEmail != null && userEmail.equals(email)));
+
+        if(isEmailChange){
+            user.setEmail(email);
+        }
+
+        if(!StringUtils.isEmpty(password)) {
+            user.setPassword(password);
+        }
+
+
+        if(!StringUtils.isEmpty(user.getEmail())){
+            user.setActivationCode(UUID.randomUUID().toString());
+            sendMessage(user);
+        }
+
+        userRepository.save(user);
     }
 }

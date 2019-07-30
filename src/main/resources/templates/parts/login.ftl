@@ -1,7 +1,7 @@
 <#macro login isRegistration>
     <form action="<#if isRegistration>/registration<#else>/login</#if>" method="post">
 
-        <div class="form_group row">
+        <div class="form-group row">
             <label for="username" class="col-sm-2 col-form-label">User Name</label>
             <div class="col-sm-6">
                 <input id="username" class="form-control" type="text" name="username" placeholder="User Name"/>
@@ -16,7 +16,7 @@
         </div>
         <#if isRegistration>
         <div class="form-group row">
-            <label for="email" class="col-sm-2 col-form-label">email</label>
+            <label for="email" class="col-sm-2 col-form-label">Email</label>
             <div class="col-sm-6">
                 <input id="email" class="form-control" type="email" name="email" placeholder="some@some.com"/>
             </div>

@@ -6,11 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.kortez.test.domain.Role;
 import ru.kortez.test.domain.User;
 import ru.kortez.test.service.UserService;
-
-import java.util.Collections;
 
 @Controller
 public class RegistrationController {
@@ -19,7 +16,6 @@ public class RegistrationController {
 
     @GetMapping("/registration")
     public String registration(Model model){
-        model.addAttribute("user", new User());
         return "registration";
     }
 
