@@ -1,8 +1,10 @@
 package ru.kortez.test.domain;
 
 import org.hibernate.annotations.Fetch;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Entity
@@ -10,8 +12,9 @@ public class Message {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
+    @NotBlank(message = "Please fill the message")
+    @Length(max = 2048, message = "message to long (more 2kB)")
     private String text;
-    private String tag;
     private Date date;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -25,9 +28,8 @@ public class Message {
     public Message() {
     }
 
-    public Message(String text, String tag, User user, Theme theme) {
+    public Message(String text, User user, Theme theme) {
         this.text = text;
-        this.tag = tag;
         this.author = user;
         this.theme = theme;
         this.date = new Date();
@@ -77,11 +79,4 @@ public class Message {
         this.text = text;
     }
 
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
 }
