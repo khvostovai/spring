@@ -7,7 +7,7 @@
             <#list messages as message>
                 <div class="card my-3">
                     <div class="card-header">
-                        <strong>${message.authorName}</strong> <i>${message.date}</i>
+                        <strong>${message.authorName}</strong> <i>${message.date?datetime}</i>
                     </div>
                     <div class="card-body">
                         ${message.text}

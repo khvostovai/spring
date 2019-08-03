@@ -4,24 +4,47 @@
     <div class="text-center mb-3">
         <button class="btn btn-primary" data-toggle="collapse" data-target="#formAddTheme">add new theme</button>
     </div>
-    <dim class="collapse" id="formAddTheme">
+    <div class="collapse ${(theme??)?string('show','')}" id="formAddTheme">
         <form method="post">
+
             <div class="form-group row">
                 <label for="title" class="col-sm-3 col-form-label">Title of theme</label>
                 <div class="col-sm-8">
-                <input id="title" class="form-control" type="text" name="title"/>
+                    <input id="title" type="text" name="title"
+                        class="form-control ${(titleError??)?string('is-invalid','')}"
+                        <#if theme?? >
+                            value="${theme.title}"
+                        </#if>
+                />
+                <#if titleError??>
+                    <div class="invalid-feedback">
+                        ${titleError}
+                    </div>
+                </#if>
                 </div>
             </div>
+
             <div class="form-group row">
                 <label for="description" class="col-sm-3 col-form-label">Description of theme</label>
                 <div class="col-sm-8">
-                    <input id="description" class="form-control" type="text" name="description"/>
+                    <input id="description" type="text" name="description"
+                        class="form-control ${(descriptionError??)?string('is-invalid', '')}"
+                        <#if theme?? >
+                            value="${theme.description}"
+                        </#if>
+                    />
+                    <#if descriptionError??>
+                        <div class="invalid-feedback">
+                            ${descriptionError}
+                        </div>
+                    </#if>
                 </div>
             </div>
+
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
             <button class="btn btn-primary" type="submit">Create</button>
         </form>
-    </dim>
+    </div>
 
     <div class="text-center mt-3"><h5>List of themes</h5></div>
     <#if themes??>
@@ -33,7 +56,7 @@
                 <div class="card-body">
                     <p class="card-text">${theme.description}</p>
                     <h6 class="card-subtitle">Author: <i>${theme.author.username}</i></h6>
-                    <h6 class="card-subtitle mt-1">Created: <i>${theme.date}</i></h6>
+                    <h6 class="card-subtitle mt-1">Created: <i>${theme.date?datetime}</i></h6>
                 </div>
                 <div class="card-footer">
                     <a href="/theme/${theme.id}" class="btn-link">Read</a>
