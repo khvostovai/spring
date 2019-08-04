@@ -28,7 +28,7 @@ public class MessageService {
             return false;
     }
 
-    public boolean deleteMessageFromTheme(Message message){
+    public boolean deleteMessage(Message message){
         if(message != null){
             messageRepository.delete(message);
             return true;
@@ -45,4 +45,10 @@ public class MessageService {
             return null;
     }
 
+    public void deleteAllMessageFromTheme(Theme theme) {
+        List<Message> themeMessages = messageRepository.findAllByTheme(theme);
+        for (Message messsage : themeMessages) {
+            messageRepository.delete(messsage);
+        }
+    }
 }

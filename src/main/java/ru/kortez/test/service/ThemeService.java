@@ -15,6 +15,9 @@ public class ThemeService {
     @Autowired
     private ThemeRepository themeRepository;
 
+    @Autowired
+    private MessageService messageService;
+
     public boolean addNewTheme(Theme theme, User user) {
         if(theme != null && user!=null) {
             theme.setAuthor(user);
@@ -28,5 +31,24 @@ public class ThemeService {
 
     public List getAllThemes() {
         return (List) themeRepository.findAll();
+    }
+
+    public boolean deleteTheme(Theme theme) {
+        if(theme != null)
+        {
+            messageService.deleteAllMessageFromTheme(theme);
+            themeRepository.delete(theme);
+            return true;
+        }
+        else
+            return false;
+    }
+
+    public List getGetAllMessageFromTheme(Theme theme) {
+        if (theme != null) {
+            return messageService.getAllMessageTheme(theme);
+        }
+        else
+            return null;
     }
 }

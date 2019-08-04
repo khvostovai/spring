@@ -2,11 +2,10 @@
 <#import "./parts/login.ftl" as l>
 
 <@p.page "login">
-    <#if message??>
-        <div>
-            ${message}
+    <#if Session?? && Session.SPRING_SECURITY_LAST_EXCEPTION??>
+        <div class="alert alert-danger" role="alert">
+            ${Session.SPRING_SECURITY_LAST_EXCEPTION}
         </div>
     </#if>
         <@l.login false/>
-        Click <a href="/registration">here </a> to add new user.
 </@p.page>

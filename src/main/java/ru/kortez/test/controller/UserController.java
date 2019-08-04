@@ -8,13 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.kortez.test.domain.Role;
 import ru.kortez.test.domain.User;
-import ru.kortez.test.repos.UserRepository;
 import ru.kortez.test.service.UserService;
 
-import java.util.Arrays;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/user")

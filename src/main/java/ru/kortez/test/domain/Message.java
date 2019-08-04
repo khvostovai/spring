@@ -1,6 +1,5 @@
 package ru.kortez.test.domain;
 
-import org.hibernate.annotations.Fetch;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;

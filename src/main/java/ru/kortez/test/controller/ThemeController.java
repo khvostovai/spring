@@ -9,16 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.kortez.test.domain.Message;
 import ru.kortez.test.domain.Theme;
 import ru.kortez.test.domain.User;
-import ru.kortez.test.repos.MessageRepository;
-import ru.kortez.test.repos.ThemeRepository;
 import ru.kortez.test.service.ThemeService;
 
 import javax.validation.Valid;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -27,15 +22,12 @@ public class ThemeController {
     @Autowired
     private ThemeService themeService;
 
-    @Autowired
-    private ThemeRepository themeRepository;
-    @Autowired
-    private MessageRepository messageRepository;
 
     //show list of themes
     @GetMapping("/themes")
     String themesList(Model model){
-        model.addAttribute("themes", themeRepository.findAll());
+        List themes = themeService.getAllThemes();
+        model.addAttribute("themes", themes);
         return "themes";
     }
 
@@ -63,24 +55,16 @@ public class ThemeController {
     //delete theme
     @PostMapping("/delTheme")
     String deleteTheme(@RequestParam("theme_id") Theme theme){
-        if(theme != null)
-        {
-            List<Message> themeMessages = messageRepository.findAllByTheme(theme);
-            for (Message messsage : themeMessages) {
-                messageRepository.delete(messsage);
-            }
-            themeRepository.delete(theme);
-        }
+        themeService.deleteTheme(theme);
         return "redirect:/themes";
     }
     //show messages which belong theme
     @GetMapping("/theme/{theme}")
-    String showTheme(@PathVariable Theme theme, Model model){
-        if(theme != null){
-            model.addAttribute("messages", messageRepository.findAllByTheme(theme));
-            model.addAttribute("theme_id", theme.getId());
-            return "messages";
-        }
-        return "redirect:/themes";
+    String showTheme(@PathVariable Theme theme,
+                     Model model){
+        List messages = themeService.getGetAllMessageFromTheme(theme);
+        model.addAttribute("messages", messages);
+        model.addAttribute("theme_id", theme.getId());
+        return "messages";
     }
 }
