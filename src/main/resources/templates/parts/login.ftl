@@ -57,6 +57,17 @@
                     </#if>
                 </div>
             </div>
+            <div>
+                <div class="g-recaptcha" data-sitekey="6Lcp07EUAAAAANrCn2UYegkK7mRWCBVTLdGBNVm1"></div>
+                <input id="capcha" type="hidden" name="capcha"
+                       class="form-control ${(capchaError??)?string('is-invalid','')}"
+                />
+                <#if capchaError??>
+                    <div class="invalid-feedback">
+                        ${capchaError}
+                    </div>
+                </#if>
+            </div>
         </#if>
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
             <button type="submit" class="btn btn-primary"><#if isRegistration>Registration<#else>Sign in</#if></button>
