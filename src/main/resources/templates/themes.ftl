@@ -5,7 +5,7 @@
         <button class="btn btn-primary" data-toggle="collapse" data-target="#formAddTheme">add new theme</button>
     </div>
     <div class="collapse ${(theme??)?string('show','')}" id="formAddTheme">
-        <form method="post">
+        <form method="post" action="/themes">
 
             <div class="form-group row">
                 <label for="title" class="col-sm-3 col-form-label">Title of theme</label>
@@ -49,7 +49,7 @@
     <div class="text-center mt-3"><h5>List of themes</h5></div>
     <#if themes??>
         <#list themes as theme>
-            <div class="card mt-3">
+            <div class="card mt-3" style="cursor: pointer;" onclick="window.location='/theme/${theme.id}'">
                 <div class="card-header">
                     <h6 class="card-title">${theme.title}</h6>
                 </div>
@@ -59,8 +59,7 @@
                     <h6 class="card-subtitle mt-1">Created: <i>${theme.date?datetime}</i></h6>
                 </div>
                 <div class="card-footer">
-                    <a href="/theme/${theme.id}" class="btn-link">Read</a>
-                    <#if isAdmin>
+                    <#if isAdmin || currentUserID == theme.author.id>
                         <form method="post" action="/delTheme">
                             <input type="hidden" name="theme_id" value="${theme.id}"/>
                             <input type="hidden" name="_csrf" value="${_csrf.token}"/>

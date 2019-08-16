@@ -1,9 +1,11 @@
 <#import "./parts/page.ftl" as p>
 <#import "./parts/login.ftl" as l>
+<#include "./parts/security.ftl">
+
 <@p.page "messages">
+    <h5>${title}</h5>
     <#if messages??>
         <div>
-            <h5>список сообщений:</h5>
             <#list messages as message>
                 <div class="card my-3">
                     <div class="card-header">
@@ -13,12 +15,14 @@
                         ${message.text}
                     </div>
                     <div class="card-footer">
-                        <form action="/delMessage" method="post">
-                            <input type="submit" value="delete"/>
-                            <input type="hidden" name="theme_id" value="${message.theme.id}">
-                            <input type="hidden" name="message_id" value="${message.id}"/>
-                            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                        </form>
+                        <#if isAdmin || currentUserID == message.author.id>
+                            <form action="/delMessage" method="post">
+                                <input type="submit" value="delete"/>
+                                <input type="hidden" name="theme_id" value="${message.theme.id}">
+                                <input type="hidden" name="message_id" value="${message.id}"/>
+                                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                            </form>
+                        </#if>
                     </div>
                 </div>
             </#list>
@@ -31,8 +35,8 @@
             <label for="text" class="col-sm-2 col-form-label">Enter your message:</label>
             <div class="col-sm-6">
                 <input id="text" type="text" name="text" placeholder="message"
-                    class="form-control ${(textError??)?string('is-invalid','')}"
-                    <#if message??> value="${message.text}" </#if>
+                       class="form-control ${(textError??)?string('is-invalid','')}"
+                        <#if message??> value="${message.text}" </#if>
                 />
                 <#if textError??>
                     <div class="invalid-feedback">

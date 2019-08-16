@@ -34,6 +34,7 @@ public class MessageController {
             model.addAttribute("message", message);
             model.addAttribute("messages", messageService.getAllMessageTheme(theme));
             model.addAttribute("theme_id",theme.getId());
+            model.addAttribute("title", theme.getTitle());
             return "messages";
         }
         else {
@@ -51,6 +52,7 @@ public class MessageController {
 
         messageService.deleteMessage(message);
         model.addAttribute("messages", messageService.getAllMessageTheme(theme));
+        model.addAttribute("title", theme.getTitle());
         return "messages";
     }
 }

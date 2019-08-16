@@ -31,6 +31,15 @@ public class ThemeController {
         return "themes";
     }
 
+    //show list of user themes
+    @GetMapping("/user-themes/{user}")
+    String getUsersThemes(@AuthenticationPrincipal User currentUser,
+                          @PathVariable User user,
+                          Model model) {
+        model.addAttribute("themes", user.getThemes());
+        return "themes";
+    }
+
     //add new theme
     @PostMapping("/themes")
     String addTheme(@AuthenticationPrincipal User user,
@@ -65,6 +74,7 @@ public class ThemeController {
         List messages = themeService.getGetAllMessageFromTheme(theme);
         model.addAttribute("messages", messages);
         model.addAttribute("theme_id", theme.getId());
+        model.addAttribute("title", theme.getTitle());
         return "messages";
     }
 }
